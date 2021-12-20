@@ -2,27 +2,49 @@ package com.learning.country.repositories
 
 import android.content.Context
 import android.util.Log
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.learning.country.data.Country
+import com.learning.country.data.models.Country
+import com.learning.country.room.CountryDataBase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import java.io.IOException
 import java.io.InputStream
 import java.lang.reflect.Type
 import java.nio.charset.StandardCharsets
 
 class CountryRepository(context: Context) {
-    private val mApplicationContext: Context = context.applicationContext
-    private val _countryList: MutableState<List<Country>> = mutableStateOf(emptyList())
-    val countryList: State<List<Country>> get() = _countryList
 
-    init {
-        val json = getJsonDataFromAsset(mApplicationContext)
+    private val mContext: Context = context
+
+    private val countryDataBase = CountryDataBase.getDatabase(mContext)
+    private val countryDao = countryDataBase.countryDao()
+
+    fun getCountry() : Flow<List<Country>> {
+        CoroutineScope(Dispatchers.IO).launch {
+            if (countryDao.getRowsCount() == 0) {
+                getCountriesFromAsset()
+            }
+        }
+        return countryDao.getCountryFromDb()
+    }
+
+    private fun getCountriesFromAsset() {
+
+        val json = getJsonDataFromAsset(mContext)
         val gson = Gson()
         val type: Type = object : TypeToken<List<Country>>() {}.type
-        _countryList.value = gson.fromJson(json, type)
+        val countries: List<Country> = gson.fromJson(json, type)
+
+        CoroutineScope(Dispatchers.IO).launch {
+
+            val l = countryDao.insertCountries(countries)
+            Log.i("Ahmed_dbi", "count : ${l.size}")
+
+        }
+
     }
 
     private fun getJsonDataFromAsset(context: Context): String? {

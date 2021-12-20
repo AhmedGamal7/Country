@@ -26,11 +26,11 @@ import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
 import com.learning.country.R
-import com.learning.country.data.Country
+import com.learning.country.data.models.Country
 import com.learning.country.data.utils.NavHostItem
 import com.learning.country.ui.activities.CountryViewModel
 import com.learning.country.ui.activities.CountryViewModelFactory
-import com.learning.country.ui.activities.composeview.SearchView
+import com.learning.country.ui.screen.composeview.SearchView
 
 @Composable
 fun MainScreen(navController: NavHostController) {

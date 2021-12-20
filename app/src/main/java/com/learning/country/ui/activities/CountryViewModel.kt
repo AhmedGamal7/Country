@@ -2,24 +2,25 @@ package com.learning.country.ui.activities
 
 import android.content.Context
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.learning.country.data.Country
+import com.learning.country.data.models.Country
 import com.learning.country.repositories.CountryRepository
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class CountryViewModel(context: Context) : ViewModel() {
 
-    private val _countryList: MutableState<List<Country>> = mutableStateOf(emptyList())
-    val countryList: State<List<Country>> get() = _countryList
+    val countryList: MutableState<List<Country>> = mutableStateOf(emptyList())
 
     init {
         val countryRepository = CountryRepository(context = context)
         viewModelScope.launch {
-            _countryList.value = countryRepository.countryList.value
+            countryRepository.getCountry().collect() { it ->
+                countryList.value = it
+            }
         }
     }
 }
