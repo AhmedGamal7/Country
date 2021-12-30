@@ -1,4 +1,4 @@
-package com.learning.country.ui.activities
+package com.learning.country.ui.screen.mainscreen
 
 import android.content.Context
 import androidx.compose.runtime.MutableState

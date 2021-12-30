@@ -6,14 +6,15 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.colorResource
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.learning.country.R
 import com.learning.country.data.models.Country
 import com.learning.country.data.utils.NavHostItem
-import com.learning.country.ui.screen.CountryDetailScreen
-import com.learning.country.ui.screen.MainScreen
+import com.learning.country.ui.screen.detailscreen.CountryDetailScreen
+import com.learning.country.ui.screen.mainscreen.MainScreen
 import com.learning.country.ui.theme.CountryTheme
 
 
@@ -25,16 +26,17 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     backgroundColor = colorResource(id = R.color.main_color)
                 ) {
-                    Navigation()
+                    val navController = rememberNavController()
+                    Navigation(navController)
                 }
             }
         }
     }
 }
 
+
 @Composable
-fun Navigation() {
-    val navController = rememberNavController()
+fun Navigation(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "MainScreen") {
         composable(NavHostItem.Main.route) {
             MainScreen(navController = navController)
@@ -45,7 +47,7 @@ fun Navigation() {
             val country =
                 navController.previousBackStackEntry?.savedStateHandle?.get<Country>("country")
             country?.let {
-                CountryDetailScreen(navController = navController, country = it)
+                CountryDetailScreen(country = it)
             }
         }
     }

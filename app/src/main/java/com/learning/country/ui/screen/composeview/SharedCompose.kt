@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.learning.country.R
@@ -85,19 +86,24 @@ fun SearchViewPreview() {
 }
 
 @Composable
-fun MyText(title: String, description: String, modifier: Modifier = Modifier, fontSize: Int = 18) {
+fun MyText(
+    title: String,
+    description: String,
+    modifier: Modifier = Modifier,
+    fontSize: TextUnit = 18.sp
+) {
     Spacer(modifier = modifier.height(20.dp))
     Text(
         text = buildAnnotatedString {
             withStyle(
                 style = SpanStyle(
                     color = Color.White,
-                    fontSize = fontSize.sp,
+                    fontSize = fontSize,
                     fontWeight = FontWeight.Medium,
                     letterSpacing = 2.sp
                 )
             ) {
-                append("$title ")
+                append("${title.trim()} ")
             }
 
             withStyle(
@@ -108,7 +114,7 @@ fun MyText(title: String, description: String, modifier: Modifier = Modifier, fo
                     letterSpacing = 2.sp
                 )
             ) {
-                append(description)
+                append("${description.trim()} ")
             }
 
         },

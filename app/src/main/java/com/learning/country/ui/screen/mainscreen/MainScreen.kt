@@ -1,4 +1,4 @@
-package com.learning.country.ui.screen
+package com.learning.country.ui.screen.mainscreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,20 +28,22 @@ import coil.transform.CircleCropTransformation
 import com.learning.country.R
 import com.learning.country.data.models.Country
 import com.learning.country.data.utils.NavHostItem
-import com.learning.country.ui.activities.CountryViewModel
-import com.learning.country.ui.activities.CountryViewModelFactory
 import com.learning.country.ui.screen.composeview.SearchView
 
 @Composable
 fun MainScreen(navController: NavHostController) {
     val context = LocalContext.current
-    val countryViewModel: CountryViewModel = viewModel(factory = CountryViewModelFactory(context))
+
+    val countryViewModel: CountryViewModel =
+        viewModel(factory = CountryViewModelFactory(context))
+
+    val searchViewState = remember { mutableStateOf(TextFieldValue("")) }
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
             .background(colorResource(id = R.color.main_color)),
     ) {
-        val searchViewState = remember { mutableStateOf(TextFieldValue("")) }
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -83,7 +85,6 @@ fun CountryList(
 
         items(myCountries) { item ->
             CountryRow(navController, item = item)
-
         }
     }
 }
@@ -128,7 +129,6 @@ fun CountryRow(navController: NavHostController, item: Country) {
                     .padding(5.dp)
                     .align(Alignment.CenterVertically)
             )
-
         }
 
     }

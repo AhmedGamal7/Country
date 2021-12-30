@@ -1,4 +1,4 @@
-package com.learning.country.ui.screen
+package com.learning.country.ui.screen.detailscreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
 import com.learning.country.R
@@ -18,7 +18,7 @@ import com.learning.country.data.models.Country
 import com.learning.country.ui.screen.composeview.MyText
 
 @Composable
-fun CountryDetailScreen(navController: NavHostController, country: Country) {
+fun CountryDetailScreen(country: Country) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -40,7 +40,7 @@ fun CountryDetailScreen(navController: NavHostController, country: Country) {
         )
 
         MyText(
-            title = "${country.name!!} ", description = "", fontSize = 25, modifier = Modifier
+            title = "${country.name!!} ", description = "", fontSize = 25.sp, modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 5.dp)
         )
@@ -49,6 +49,7 @@ fun CountryDetailScreen(navController: NavHostController, country: Country) {
                 .align(Alignment.CenterHorizontally)
                 .padding(5.dp)
         )
+
         MyText(title = "Alpha3Code :", description = country.alpha3Code!!)
         MyText(title = "Alpha2Code :", description = country.alpha2Code!!)
         MyText(title = "Capital :", description = country.capital!!)
@@ -59,30 +60,27 @@ fun CountryDetailScreen(navController: NavHostController, country: Country) {
         MyText(title = "Calling Codes :", description = country.callingCodes!!.toString())
         MyText(title = "Time Zones : ", description = country.timezones!!.toString())
 
-        MyText(title = "Currencies:", description = "")
 
+        MyText(title = "Currencies:", description = "")
         for (i in country.currencies!!) {
             MyText(
                 title = "",
                 description = "-(code :${i.code}. Name :${i.name}. symbol :${i.symbol})",
-                fontSize = 15,
                 modifier = Modifier
                     .padding(start = 50.dp)
             )
         }
 
-        MyText(title = "Languages:", description = "")
 
+        MyText(title = "Languages:", description = "")
         for (i in country.languages!!) {
             MyText(
                 title = "",
                 description = "-${i.name}(${i.nativeName})",
-                fontSize = 15,
                 modifier = Modifier
                     .padding(start = 50.dp)
             )
         }
-
 
         Spacer(modifier = Modifier.height(50.dp))
 
