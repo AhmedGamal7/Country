@@ -12,10 +12,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.learning.country.R
 import com.learning.country.data.models.Country
-import com.learning.country.data.utils.NavHostItem
 import com.learning.country.ui.screen.detailscreen.CountryDetailScreen
 import com.learning.country.ui.screen.mainscreen.MainScreen
 import com.learning.country.ui.theme.CountryTheme
+import com.learning.country.utils.NavHostItem
 
 
 class MainActivity : ComponentActivity() {

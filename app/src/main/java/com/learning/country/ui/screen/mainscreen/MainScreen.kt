@@ -16,26 +16,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
 import com.learning.country.R
 import com.learning.country.data.models.Country
-import com.learning.country.data.utils.NavHostItem
 import com.learning.country.ui.screen.composeview.SearchView
+import com.learning.country.utils.NavHostItem
+import org.koin.androidx.compose.viewModel
+
 
 @Composable
 fun MainScreen(navController: NavHostController) {
-    val context = LocalContext.current
 
-    val countryViewModel: CountryViewModel =
-        viewModel(factory = CountryViewModelFactory(context))
+    val viewModel by viewModel<CountryViewModel>()
+    val countryState = viewModel.countryList
 
     val searchViewState = remember { mutableStateOf(TextFieldValue("")) }
     Scaffold(
@@ -43,14 +42,13 @@ fun MainScreen(navController: NavHostController) {
             .fillMaxSize()
             .background(colorResource(id = R.color.main_color)),
     ) {
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(colorResource(id = R.color.main_color))
         ) {
             SearchView(state = searchViewState)
-            CountryList(navController, countryViewModel.countryList.value, searchViewState)
+            CountryList(navController, countryState.value, searchViewState)
         }
     }
 }
@@ -118,7 +116,7 @@ fun CountryRow(navController: NavHostController, item: Country) {
             )
             Image(
                 painter = rememberImagePainter(
-                    data = item.flag!!,
+                    data = item.flag,
                     builder = {
                         transformations(CircleCropTransformation())
                     }

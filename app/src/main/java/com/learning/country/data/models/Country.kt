@@ -3,9 +3,6 @@ package com.learning.country.data.models
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.google.gson.annotations.SerializedName
-import com.learning.country.data.models.converters.*
 import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "Country")
@@ -13,38 +10,28 @@ import kotlinx.parcelize.Parcelize
 data class Country(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    @SerializedName("name") var name: String?,
-    @TypeConverters(StringListConverter::class)
-    @SerializedName("topLevelDomain") var topLevelDomain: List<String>?,
-    @SerializedName("alpha2Code") var alpha2Code: String? = null,
-    @SerializedName("alpha3Code") var alpha3Code: String? = null,
-    @TypeConverters(StringListConverter::class)
-    @SerializedName("callingCodes") var callingCodes: List<String>? = null,
-    @SerializedName("capital") var capital: String? = null,
-    @TypeConverters(StringListConverter::class)
-    @SerializedName("altSpellings") var altSpellings: List<String>? = null,
-    @SerializedName("region") var region: String? = null,
-    @SerializedName("subregion") var subregion: String? = null,
-    @SerializedName("population") var population: Int? = null,
-    @TypeConverters(DoubleListConverter::class)
-    @SerializedName("latlng") var latlng: List<Double?>? = null,
-    @SerializedName("demonym") var demonym: String? = null,
-    @SerializedName("area") var area: Double? = null,
-    @SerializedName("gini") var gini: Double? = null,
-    @TypeConverters(StringListConverter::class)
-    @SerializedName("timezones") var timezones: List<String>? = null,
-    @TypeConverters(StringListConverter::class)
-    @SerializedName("borders") var borders: List<String>? = null,
-    @SerializedName("nativeName") var nativeName: String? = null,
-    @SerializedName("numericCode") var numericCode: String? = null,
-    @TypeConverters(CurrencyConverter::class)
-    @SerializedName("currencies") var currencies: List<Currency>? = null,
-    @TypeConverters(LanguageConverter::class)
-    @SerializedName("languages") var languages: List<Language>? = null,
-    @TypeConverters(TranslationsConverter::class)
-    @SerializedName("translations") var translations: Translations? = null,
-    @SerializedName("flag") var flag: String? = null,
-    @TypeConverters(RegionalBlocConverter::class)
-    @SerializedName("regionalBlocs")  var regionalBlocs: List<RegionalBloc>? = null,
-    @SerializedName("cioc") var cioc: String? = null
+    val alpha2Code: String? = null,
+    val alpha3Code: String? = null,
+    val altSpellings: List<String>? = null,
+    val area: Double? = null,
+    val borders: List<String>? = null,
+    val callingCodes: List<String>? = null,
+    val capital: String? = null,
+    val cioc: String? = null,
+    val currencies: List<Currency>? = null,
+    val demonym: String? = null,
+    val flag: String? = null,
+    val gini: Double? = null,
+    val languages: List<Language>? = null,
+    val latlng: List<Double>? = null,
+    val name: String? = null,
+    val nativeName: String? = null,
+    val numericCode: String? = null,
+    val population: Int? = null,
+    val region: String? = null,
+    val regionalBlocs: List<RegionalBloc>? = null,
+    val subregion: String? = null,
+    val timezones: List<String>? = null,
+    val topLevelDomain: List<String>? = null,
+    val translations: Translations? = null
 ) : Parcelable

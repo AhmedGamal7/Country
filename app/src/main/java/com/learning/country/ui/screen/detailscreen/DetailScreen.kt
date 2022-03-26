@@ -40,7 +40,7 @@ fun CountryDetailScreen(country: Country) {
         )
 
         MyText(
-            title = "${country.name!!} ", description = "", fontSize = 25.sp, modifier = Modifier
+            title = "${country.name} ", description = "", fontSize = 25.sp, modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 5.dp)
         )
@@ -50,15 +50,15 @@ fun CountryDetailScreen(country: Country) {
                 .padding(5.dp)
         )
 
-        MyText(title = "Alpha3Code :", description = country.alpha3Code!!)
-        MyText(title = "Alpha2Code :", description = country.alpha2Code!!)
-        MyText(title = "Capital :", description = country.capital!!)
-        MyText(title = "Region :", description = country.region!!)
-        MyText(title = "SubRegion :", description = country.subregion!!)
-        MyText(title = "Population :", description = country.population!!.toString())
-        MyText(title = "Demonym :", description = country.demonym!!)
-        MyText(title = "Calling Codes :", description = country.callingCodes!!.toString())
-        MyText(title = "Time Zones : ", description = country.timezones!!.toString())
+        country.alpha3Code?.let { MyText(title = "Alpha3Code :", description = it) }
+        country.alpha2Code?.let { MyText(title = "Alpha2Code :", description = it) }
+        country.capital?.let { MyText(title = "Capital :", description = it) }
+        country.region?.let { MyText(title = "Region :", description = it) }
+        country.subregion?.let { MyText(title = "SubRegion :", description = it) }
+        MyText(title = "Population :", description = country.population.toString())
+        country.demonym?.let { MyText(title = "Demonym :", description = it) }
+        MyText(title = "Calling Codes :", description = country.callingCodes.toString())
+        MyText(title = "Time Zones : ", description = country.timezones.toString())
 
 
         MyText(title = "Currencies:", description = "")
