@@ -8,6 +8,8 @@ import com.learning.country.room.CountryDao
 import com.learning.country.room.CountryDataBase
 import com.learning.country.ui.screen.mainscreen.CountryViewModel
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -17,6 +19,8 @@ val module = module {
     single { provideDataBase(androidApplication()) }
     single { provideDao(get()) }
     single { ReadAsset() }
+    // to inject scope
+    //factory { CoroutineScope(Dispatchers.IO + SupervisorJob()) }
     single { CountryRepository(get(), get()) }
 
     viewModel { CountryViewModel(get()) }
